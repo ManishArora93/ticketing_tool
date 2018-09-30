@@ -1,0 +1,37 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 customerTicket">
+  <p>
+    <strong>Username:</strong>
+    <%= @user.username %>
+  </p>
+  <p>
+    <strong>Email:</strong>
+    <%= @user.email %>
+  </p>
+
+  <p>
+    <strong>Assigned Tickets Count:</strong>
+    <%= Ticket.where(associate_id: @user.id).count %>
+  </p>
+</div>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 customerTicket">
+  <%= form_for('change_role', url: update_role_users_path) do |f| %>
+    <div class="field">
+      <%= f.hidden_field :id, value: @user.id %>
+      <%= f.label :update_Role %><br>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <ul class="settings">
+          <% Role.all.each do |role| %>
+            <li>
+              <%= f.label role.title -%>
+              <%= check_box_tag 'role_ids[]', role.title, @user.custom_roles.pluck(:title).include?(role.title) -%>
+            </li>
+          <% end %>
+        </ul> 
+    </div>
+    <div class="actions">
+      <%= f.submit class: 'bt btn-primary'%>
+      <br>
+      <%= link_to 'Back', users_path, class: 'bt btn-primary pull-right' %>
+    </div>
+  <% end %>
+</div>

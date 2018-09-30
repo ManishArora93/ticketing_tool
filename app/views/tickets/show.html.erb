@@ -1,0 +1,65 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 customerTicket">
+  <p id="notice"><%= notice %></p>
+
+  <p>
+    <h3 class= "noMargin headerText"><%= @ticket.name %></h3>
+  </p>
+  <p>
+    <strong>Description:</strong>
+    <%= @ticket.description %>
+  </p>
+
+  <p>
+    <strong>Severity:</strong>
+    <%= Severity.where(id: @ticket.severity).first.try(:severity_type) %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= Status.where(id: @ticket.status).first.try(:status_type) %>
+  </p>
+
+  <p>
+    <strong>Customer:</strong>
+    <%= User.where(id: @ticket.customer_id).first.try(:email) %>
+  </p>
+
+  <p>
+    <strong>Associate:</strong>
+    <%= User.where(id: @ticket.associate_id).first.try(:email) %>
+  </p>
+
+  <p>
+    <strong>Commented by Associate:</strong>
+    <%= @ticket.comment %>
+  </p>
+
+  <%= link_to 'Edit', edit_ticket_path(@ticket), class: 'bt btn-primary' %> |
+  <%= link_to 'Back', tickets_path, class: 'bt btn-primary' %>
+  <%- if (can? :manage, Ticket) || (can? :setting, User) %>
+    <%= form_for(@ticket) do |f| %>
+      <%-if (can? :setting, User) %>
+        <div class="field">
+          <h4><%= f.label :assign_Associate , class: 'fontColor'%><br></h4>
+          <%= f.select :associate_id, options_for_select(User.all.collect { |u| [ u.email, u.id ] }, @ticket.associate_id),{}, class: "form-control"%>
+        </div>
+      <%-else %>
+        <span class= "text-muted">Click on radio button to assign to yourself</span><br>
+        <%= f.radio_button :associate_id, current_user.id, checked: (@ticket.associate_id == current_user.id), class:"noMargin"-%>
+        <%= f.label :assign_to_me , class: 'fontColor'-%>
+      <% end %>
+      <div class="field">
+        <%= f.label :comment, class: 'fontColor' %><br>
+        <span class= "text-muted">(Optional)</span>
+        <%= f.text_field :comment, class: 'fieldBorder' %>
+      </div>
+      <div class="field">
+        <%= f.label :change_Status, class: 'fontColor' %><br>
+        <%= f.select :status, options_for_select(Status.where(is_valid: true).all.collect { |s| [ s.status_type, s.id ] }, @ticket.status),{}, class: "form-control"%>
+      </div>
+      <div class="actions">
+        <%= f.submit class: 'bt btn-primary' %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

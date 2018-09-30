@@ -1,0 +1,11 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 customerHead">
+  <h1>Listing Tickets</h1>
+  <h4 class= "text-center">Status - Open/Reopen Tickets</h4>
+  <%= link_to 'New Ticket', new_ticket_path , class: "pull-right btn btn-primary"%>
+  <%= render 'shared/ticket_index_body', status: [1,4] %>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <h4 class= "text-center">Status - Closed/Resolved Tickets</h4>
+    <%= render 'shared/ticket_index_body', status: [2,3] %>
+  </div>
+  <br>
+</div>

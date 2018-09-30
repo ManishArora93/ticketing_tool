@@ -1,0 +1,26 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 customerTicket">
+  <div class="row" >
+    <div align="center"> 
+      <h4> All Users </h4>
+        <%= page_entries_info @user %><br>
+        <span  class= "text-muted">Click on Username to Manage Roles</span>
+        <table class="table table-bordered table table-hover">
+          <thead>
+            <tr>
+              <th> Username</th>
+              <th> Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%- @user.each do |user| %>
+              <tr>
+                <td><%= link_to user.username, user %></td>
+                <td><%= link_to user.email, user %></td>
+              </tr>
+            <%end%>
+            </tbody>
+        </table>
+        <%= paginate @user %>
+    </div>
+  </div>
+</div>

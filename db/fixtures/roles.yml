@@ -1,0 +1,30 @@
+user:
+  title: 'user'
+  view_all_users: false
+  create_tickets: true
+  view_all_tickets: false
+  view_own_tickets: true
+  manage_users: false
+  change_own_tickets_status: true
+  change_all_tickets_status: false
+  assign_tickets: false
+associate:
+  title: 'associate'
+  view_all_users: false
+  create_tickets: true
+  view_all_tickets: true
+  view_own_tickets: true
+  manage_users: false
+  change_own_tickets_status: true
+  change_all_tickets_status: true
+  assign_tickets: true
+admin:
+  title: 'admin'
+  view_all_users: true
+  create_tickets: true
+  view_all_tickets: true
+  view_own_tickets: true
+  manage_users: true
+  change_own_tickets_status: true
+  change_all_tickets_status: true
+  assign_tickets: true
